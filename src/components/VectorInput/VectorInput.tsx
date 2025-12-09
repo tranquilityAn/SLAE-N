@@ -27,7 +27,7 @@ const VectorInput: React.FC<VectorInputProps> = ({ n, value, onChange }) => {
             type="number"
             value={value[index] ?? 0}
             onChange={(e) => handleChange(index, e.target.value)}
-            className="vector-cell"
+            className="vector-cell no-spinner"
           />
         ))}
       </div>

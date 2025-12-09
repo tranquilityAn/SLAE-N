@@ -25,8 +25,8 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onLoad }) => {
     }
 
     const n = Number(lines[0]);
-    if (!Number.isInteger(n) || n < 2) {
-      throw new Error('Invalid dimension in file.');
+    if (!Number.isInteger(n) || n < 2 || n > 10) {
+      throw new Error('Invalid dimension in file. Use an integer between 2 and 10.');
     }
 
     const rows = lines.slice(1);

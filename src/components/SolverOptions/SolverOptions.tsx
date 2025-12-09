@@ -16,6 +16,19 @@ const SolverOptions: React.FC<SolverOptionsProps> = ({ method, options, onChange
     onChange({ ...options, [key]: value });
   };
 
+  const currentExponent =
+    options.epsilon && options.epsilon > 0 ? Math.log10(options.epsilon) : Math.log10(1e-6);
+
+  const handleExponentChange = (raw: string) => {
+    if (raw === '') {
+      onChange({ ...options, epsilon: undefined });
+      return;
+    }
+
+    const exponent = Number(raw);
+    onChange({ ...options, epsilon: 10 ** exponent });
+  };
+
   if (!isIterative) {
     return null;
   }
@@ -28,13 +41,14 @@ const SolverOptions: React.FC<SolverOptionsProps> = ({ method, options, onChange
       </div>
       <div className="options-grid">
         <label className="option-field">
-          <span className="field-label">Epsilon</span>
+          <span className="field-label">Epsilon (10^k)</span>
           <input
             type="number"
-            step="0.000001"
-            value={options.epsilon ?? ''}
-            onChange={(e) => handleNumberChange('epsilon', e.target.value)}
+            step={1}
+            value={Number.isFinite(currentExponent) ? currentExponent : ''}
+            onChange={(e) => handleExponentChange(e.target.value)}
           />
+          <span className="muted small">Current epsilon: {options.epsilon?.toExponential() ?? 'unset'}</span>
         </label>
         <label className="option-field">
           <span className="field-label">Max iterations</span>

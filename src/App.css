@@ -98,10 +98,16 @@
 .matrix-grid {
   display: grid;
   gap: 8px;
+  justify-content: flex-start;
 }
 
 .matrix-cell,
-.vector-cell,
+.vector-cell {
+  width: 100%;
+  max-width: 90px;
+  justify-self: start;
+}
+
 .method-select,
 .option-field input,
 .upload-field input {
@@ -112,6 +118,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 8px;
+  width: fit-content;
 }
 
 .options-grid {

@@ -1,11 +1,10 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import MatrixInput from '../../components/MatrixInput/MatrixInput';
 import VectorInput from '../../components/VectorInput/VectorInput';
 import MethodSelector from '../../components/MethodSelector/MethodSelector';
 import SolverOptions from '../../components/SolverOptions/SolverOptions';
 import FileUploader from '../../components/FileUploader/FileUploader';
 import SolutionView from '../../components/SolutionView/SolutionView';
-import IterationTable from '../../components/IterationTable/IterationTable';
 import Layout from '../../components/Layout/Layout';
 import { MethodType, solveSlae } from '../../core';
 import type { Matrix, MethodType as MethodTypeValue, SolveOptions, SolveResult, Vector } from '../../core/types';
@@ -27,8 +26,8 @@ const HomePage: React.FC = () => {
 
   const handleNChange = (value: string) => {
     const parsed = Number(value);
-    if (!Number.isInteger(parsed) || parsed < 2) {
-      setError('Dimension n must be an integer greater than or equal to 2.');
+    if (!Number.isInteger(parsed) || parsed < 2 || parsed > 10) {
+      setError('Dimension n must be an integer between 2 and 10.');
       return;
     }
     setError(null);
@@ -42,6 +41,12 @@ const HomePage: React.FC = () => {
     try {
       if (!Number.isInteger(n) || n < 2) {
         setError('Dimension n must be at least 2.');
+        setResult(null);
+        return;
+      }
+
+      if (n > 10) {
+        setError('Dimension n must not exceed 10.');
         setResult(null);
         return;
       }
@@ -75,8 +80,6 @@ const HomePage: React.FC = () => {
     setResult(null);
     setError(null);
   };
-
-  const isIterativeMethod = useMemo(() => method === MethodType.Jacobi || method === MethodType.Seidel, [method]);
 
   return (
     <div className="home-page">
@@ -137,7 +140,7 @@ const HomePage: React.FC = () => {
                 <div className="card">
                   <label className="field">
                     <span className="field-label">Dimension (n)</span>
-                    <input type="number" min={2} value={n} onChange={(e) => handleNChange(e.target.value)} />
+                    <input type="number" min={2} max={10} value={n} onChange={(e) => handleNChange(e.target.value)} />
                   </label>
                 </div>
                 <MatrixInput n={n} value={A} onChange={setA} />
@@ -155,7 +158,6 @@ const HomePage: React.FC = () => {
         results={
           <div className="results-panel">
             <SolutionView result={result} error={error} />
-            {isIterativeMethod && <IterationTable iterations={result?.iterations} />}
           </div>
         }
       />

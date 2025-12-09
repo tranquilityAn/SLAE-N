@@ -22,7 +22,7 @@ const MatrixInput: React.FC<MatrixInputProps> = ({ n, value, onChange }) => {
         <h3>Matrix A</h3>
         <p className="muted">Enter coefficients row by row.</p>
       </div>
-      <div className="matrix-grid" style={{ gridTemplateColumns: `repeat(${n}, minmax(60px, 1fr))` }}>
+      <div className="matrix-grid" style={{ gridTemplateColumns: `repeat(${n}, minmax(70px, 90px))` }}>
         {Array.from({ length: n }).map((_, row) =>
           Array.from({ length: n }).map((__, col) => (
             <input
@@ -30,7 +30,7 @@ const MatrixInput: React.FC<MatrixInputProps> = ({ n, value, onChange }) => {
               type="number"
               value={value[row]?.[col] ?? 0}
               onChange={(e) => handleCellChange(row, col, e.target.value)}
-              className="matrix-cell"
+              className="matrix-cell no-spinner"
             />
           ))
         )}
