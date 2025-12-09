@@ -10,6 +10,8 @@ import Layout from '../../components/Layout/Layout';
 import { MethodType, solveSlae } from '../../core';
 import type { Matrix, MethodType as MethodTypeValue, SolveOptions, SolveResult, Vector } from '../../core/types';
 
+type InputMode = 'manual' | 'file';
+
 const createZeroMatrix = (size: number): Matrix => Array.from({ length: size }, () => Array(size).fill(0));
 const createZeroVector = (size: number): Vector => Array(size).fill(0);
 
@@ -21,6 +23,7 @@ const HomePage: React.FC = () => {
   const [options, setOptions] = useState<SolveOptions>({ epsilon: 1e-6, maxIterations: 100 });
   const [result, setResult] = useState<SolveResult | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [inputMode, setInputMode] = useState<InputMode>('manual');
 
   const handleNChange = (value: string) => {
     const parsed = Number(value);
@@ -65,6 +68,7 @@ const HomePage: React.FC = () => {
   };
 
   const handleFileLoad = (data: { n: number; A: Matrix; B: Vector }) => {
+    setInputMode('file');
     setN(data.n);
     setA(data.A);
     setB(data.B);
@@ -84,23 +88,71 @@ const HomePage: React.FC = () => {
         </div>
       </header>
       <Layout
-        left={
+        inputs={
           <div className="input-panel">
-            <label className="field">
-              <span className="field-label">Dimension (n)</span>
-              <input type="number" min={2} value={n} onChange={(e) => handleNChange(e.target.value)} />
-            </label>
-            <MethodSelector value={method} onChange={setMethod} />
-            <SolverOptions method={method} options={options} onChange={setOptions} />
-            <MatrixInput n={n} value={A} onChange={setA} />
-            <VectorInput n={n} value={B} onChange={setB} />
-            <FileUploader onLoad={handleFileLoad} />
+            <div className="card">
+              <div className="card-header spaced">
+                <div>
+                  <h3>Method & parameters</h3>
+                  <p className="muted">Choose a method and adjust iterative options.</p>
+                </div>
+              </div>
+              <MethodSelector value={method} onChange={setMethod} />
+              <SolverOptions method={method} options={options} onChange={setOptions} />
+            </div>
+
+            <div className="card">
+              <div className="card-header spaced">
+                <div>
+                  <h3>Input mode</h3>
+                  <p className="muted">Switch between manual entry and file upload.</p>
+                </div>
+              </div>
+              <div className="input-mode-toggle">
+                <label>
+                  <input
+                    type="radio"
+                    name="input-mode"
+                    value="manual"
+                    checked={inputMode === 'manual'}
+                    onChange={() => setInputMode('manual')}
+                  />
+                  <span>Manual entry</span>
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="input-mode"
+                    value="file"
+                    checked={inputMode === 'file'}
+                    onChange={() => setInputMode('file')}
+                  />
+                  <span>Load from file</span>
+                </label>
+              </div>
+            </div>
+
+            {inputMode === 'manual' && (
+              <>
+                <div className="card">
+                  <label className="field">
+                    <span className="field-label">Dimension (n)</span>
+                    <input type="number" min={2} value={n} onChange={(e) => handleNChange(e.target.value)} />
+                  </label>
+                </div>
+                <MatrixInput n={n} value={A} onChange={setA} />
+                <VectorInput n={n} value={B} onChange={setB} />
+              </>
+            )}
+
+            {inputMode === 'file' && <FileUploader onLoad={handleFileLoad} />}
+
             <button className="primary" onClick={handleSolve}>
               Solve
             </button>
           </div>
         }
-        right={
+        results={
           <div className="results-panel">
             <SolutionView result={result} error={error} />
             {isIterativeMethod && <IterationTable iterations={result?.iterations} />}

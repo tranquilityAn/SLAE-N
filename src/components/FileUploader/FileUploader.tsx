@@ -20,32 +20,31 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onLoad }) => {
       .map((line) => line.trim())
       .filter((line) => line.length > 0);
 
+    if (lines.length < 2) {
+      throw new Error('File does not contain enough data.');
+    }
+
     const n = Number(lines[0]);
     if (!Number.isInteger(n) || n < 2) {
       throw new Error('Invalid dimension in file.');
     }
 
-    const matrixLines = lines.slice(1, n + 1);
-    const vectorLines = lines.slice(n + 1, n * 2 + 1);
-
-    if (matrixLines.length !== n || vectorLines.length !== n) {
-      throw new Error('File does not contain expected number of lines.');
+    const rows = lines.slice(1);
+    if (rows.length < n) {
+      throw new Error('File does not contain expected number of rows.');
     }
 
-    const A: Matrix = matrixLines.map((line) => {
-      const row = line.split(/\s+/).map(Number);
-      if (row.length !== n || row.some((value) => Number.isNaN(value))) {
-        throw new Error('Invalid matrix data in file.');
-      }
-      return row;
-    });
+    const A: Matrix = [];
+    const B: Vector = [];
 
-    const B: Vector = vectorLines.map((line) => {
-      const value = Number(line);
-      if (Number.isNaN(value)) {
-        throw new Error('Invalid vector data in file.');
+    rows.slice(0, n).forEach((line, rowIndex) => {
+      const numbers = line.split(/\s+/).map(Number);
+      if (numbers.length !== n + 1 || numbers.some((value) => Number.isNaN(value))) {
+        throw new Error(`Invalid data on row ${rowIndex + 1}.`);
       }
-      return value;
+
+      A.push(numbers.slice(0, n));
+      B.push(numbers[n]);
     });
 
     return { n, A, B };
@@ -75,13 +74,14 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onLoad }) => {
       <div className="card-header spaced">
         <div>
           <h3>Load from file</h3>
-          <p className="muted">Text file: n, matrix rows, then vector values.</p>
+          <p className="muted">Format: n, then n lines with coefficients A followed by B in the same line.</p>
         </div>
       </div>
       <label className="upload-field" htmlFor="file">
         <span>Choose a .txt file</span>
         <input id="file" type="file" accept=".txt" onChange={handleFileChange} />
       </label>
+      <p className="muted small">Example: 4 on the first line, then rows like "10 2 0 1 9" (last number is B).</p>
       {error && <p className="error-text">{error}</p>}
     </div>
   );

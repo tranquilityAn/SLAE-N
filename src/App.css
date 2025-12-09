@@ -36,18 +36,14 @@
 }
 
 .layout {
-  display: grid;
-  gap: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.layout-left,
-.layout-right {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 14px;
-  padding: 16px;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+.layout-section {
+  background: transparent;
+  padding: 0;
 }
 
 .input-panel,
@@ -95,6 +91,10 @@
   font-size: 14px;
 }
 
+.muted.small {
+  font-size: 13px;
+}
+
 .matrix-grid {
   display: grid;
   gap: 8px;
@@ -134,6 +134,20 @@
   border: 1px dashed #cbd5e1;
   border-radius: 10px;
   background-color: #f8fafc;
+}
+
+.input-mode-toggle {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.input-mode-toggle label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #1f2937;
 }
 
 .primary {
