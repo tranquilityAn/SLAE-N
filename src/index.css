@@ -2,8 +2,8 @@
   font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: #0f172a;
-  background-color: #f5f7fb;
+  color: #e6eaf5;
+  background-color: #0c101c;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -25,10 +25,10 @@ a:hover {
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(circle at top left, rgba(99, 102, 241, 0.08), transparent 45%),
-    radial-gradient(circle at bottom right, rgba(16, 185, 129, 0.08), transparent 45%),
-    #f5f7fb;
-  color: #0f172a;
+  background: radial-gradient(circle at top left, rgba(237, 233, 134, 0.08), transparent 40%),
+    radial-gradient(circle at bottom right, rgba(42, 167, 255, 0.06), transparent 40%),
+    #0b0f1d;
+  color: #e6eaf5;
 }
 
 button,
@@ -39,9 +39,9 @@ textarea {
 }
 
 button {
-  border: 1px solid #d0d5dd;
-  background-color: #0f172a;
-  color: #ffffff;
+  border: 1px solid #ede986;
+  background: linear-gradient(135deg, #ede986, #c6c360);
+  color: #0b0f1d;
   padding: 0.6rem 1rem;
   border-radius: 10px;
   cursor: pointer;
@@ -49,8 +49,8 @@ button {
 }
 
 button:hover {
-  background-color: #111827;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  background: linear-gradient(135deg, #fff8b5, #ede986);
+  box-shadow: 0 10px 30px rgba(237, 233, 134, 0.25);
 }
 
 button:active {
@@ -61,19 +61,20 @@ input,
 select,
 textarea {
   padding: 0.65rem 0.75rem;
-  border: 1px solid #d0d5dd;
+  border: 1px solid #1f2937;
   border-radius: 10px;
-  background-color: #ffffff;
-  color: #0f172a;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background-color: #0f1628;
+  color: #e6eaf5;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 }
 
 input:focus,
 select:focus,
 textarea:focus {
   outline: none;
-  border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  border-color: #ede986;
+  background-color: #131c30;
+  box-shadow: 0 0 0 3px rgba(237, 233, 134, 0.2);
 }
 
 .no-spinner {
