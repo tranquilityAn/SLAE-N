@@ -48,7 +48,6 @@ const SolverOptions: React.FC<SolverOptionsProps> = ({ method, options, onChange
             value={Number.isFinite(currentExponent) ? currentExponent : ''}
             onChange={(e) => handleExponentChange(e.target.value)}
           />
-          <span className="muted small">Current epsilon: {options.epsilon?.toExponential() ?? 'unset'}</span>
         </label>
         <label className="option-field">
           <span className="field-label">Max iterations</span>

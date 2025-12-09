@@ -115,8 +115,7 @@
 }
 
 .vector-grid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
   gap: 8px;
   width: fit-content;
 }

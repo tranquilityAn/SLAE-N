@@ -17,7 +17,7 @@ const METHOD_OPTIONS = [
 
 const MethodSelector: React.FC<MethodSelectorProps> = ({ value, onChange }) => {
   return (
-    <div className="method-selector card">
+    <div className="method-selector card" style={{ marginBottom: "10px" }}>
       <div className="card-header spaced">
         <div>
           <h3>Method</h3>

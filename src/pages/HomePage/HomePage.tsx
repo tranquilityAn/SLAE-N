@@ -85,7 +85,6 @@ const HomePage: React.FC = () => {
     <div className="home-page">
       <header className="page-header">
         <div>
-          <p className="eyebrow">Linear algebra toolkit</p>
           <h1>SLAE Solver</h1>
           <p className="subtitle">Solve systems of linear equations using direct and iterative numerical methods.</p>
         </div>
@@ -97,7 +96,6 @@ const HomePage: React.FC = () => {
               <div className="card-header spaced">
                 <div>
                   <h3>Method & parameters</h3>
-                  <p className="muted">Choose a method and adjust iterative options.</p>
                 </div>
               </div>
               <MethodSelector value={method} onChange={setMethod} />
