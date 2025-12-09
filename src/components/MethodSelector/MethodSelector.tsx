@@ -1,6 +1,6 @@
 import React from 'react';
-import { MethodType } from '../../core/types.js';
-import type { MethodType as MethodTypeValue } from '../../core/types.js';
+import { MethodType } from '../../core/types';
+import type { MethodType as MethodTypeValue } from '../../core/types';
 
 interface MethodSelectorProps {
   value: MethodTypeValue;
@@ -17,8 +17,13 @@ const METHOD_OPTIONS = [
 
 const MethodSelector: React.FC<MethodSelectorProps> = ({ value, onChange }) => {
   return (
-    <div className="method-selector">
-      <label htmlFor="method">Method</label>
+    <div className="method-selector card">
+      <div className="card-header spaced">
+        <div>
+          <h3>Method</h3>
+          <p className="muted">Choose the numerical method to solve the system.</p>
+        </div>
+      </div>
       <select
         id="method"
         value={value}

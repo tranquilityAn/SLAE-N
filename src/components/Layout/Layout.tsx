@@ -7,21 +7,9 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ left, right }) => {
   return (
-    <div
-      className="layout"
-      style={{
-        display: 'grid',
-        gridTemplateColumns: '1fr 1fr',
-        gap: '1.5rem',
-        alignItems: 'start',
-      }}
-    >
-      <div className="layout-left" style={{ padding: '1rem', border: '1px solid #3a3a3a', borderRadius: '8px' }}>
-        {left}
-      </div>
-      <div className="layout-right" style={{ padding: '1rem', border: '1px solid #3a3a3a', borderRadius: '8px' }}>
-        {right}
-      </div>
+    <div className="layout">
+      <div className="layout-left">{left}</div>
+      <div className="layout-right">{right}</div>
     </div>
   );
 };

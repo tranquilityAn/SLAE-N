@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import type { Matrix, Vector } from '../../core/types.js';
+import type { Matrix, Vector } from '../../core/types';
 
 interface LoadedData {
   n: number;
@@ -71,9 +71,17 @@ const FileUploader: React.FC<FileUploaderProps> = ({ onLoad }) => {
   };
 
   return (
-    <div className="file-uploader">
-      <label htmlFor="file">Load from file (.txt)</label>
-      <input id="file" type="file" accept=".txt" onChange={handleFileChange} />
+    <div className="file-uploader card">
+      <div className="card-header spaced">
+        <div>
+          <h3>Load from file</h3>
+          <p className="muted">Text file: n, matrix rows, then vector values.</p>
+        </div>
+      </div>
+      <label className="upload-field" htmlFor="file">
+        <span>Choose a .txt file</span>
+        <input id="file" type="file" accept=".txt" onChange={handleFileChange} />
+      </label>
       {error && <p className="error-text">{error}</p>}
     </div>
   );

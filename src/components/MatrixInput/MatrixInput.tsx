@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Matrix } from '../../core/types.js';
+import type { Matrix } from '../../core/types';
 
 interface MatrixInputProps {
   n: number;
@@ -17,9 +17,12 @@ const MatrixInput: React.FC<MatrixInputProps> = ({ n, value, onChange }) => {
   };
 
   return (
-    <div className="matrix-input">
-      <h3>Matrix A</h3>
-      <div className="matrix-grid" style={{ display: 'grid', gridTemplateColumns: `repeat(${n}, 1fr)`, gap: '0.5rem' }}>
+    <div className="matrix-input card">
+      <div className="card-header">
+        <h3>Matrix A</h3>
+        <p className="muted">Enter coefficients row by row.</p>
+      </div>
+      <div className="matrix-grid" style={{ gridTemplateColumns: `repeat(${n}, minmax(60px, 1fr))` }}>
         {Array.from({ length: n }).map((_, row) =>
           Array.from({ length: n }).map((__, col) => (
             <input

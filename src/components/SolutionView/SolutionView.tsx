@@ -1,5 +1,5 @@
 import React from 'react';
-import type { SolveResult } from '../../core/types.js';
+import type { SolveResult } from '../../core/types';
 
 interface SolutionViewProps {
   result: SolveResult | null;
@@ -9,8 +9,10 @@ interface SolutionViewProps {
 const SolutionView: React.FC<SolutionViewProps> = ({ result, error }) => {
   if (error) {
     return (
-      <div className="solution-view">
-        <h3>Result</h3>
+      <div className="solution-view card">
+        <div className="card-header">
+          <h3>Result</h3>
+        </div>
         <p className="error-text">{error}</p>
       </div>
     );
@@ -18,18 +20,22 @@ const SolutionView: React.FC<SolutionViewProps> = ({ result, error }) => {
 
   if (!result) {
     return (
-      <div className="solution-view">
-        <h3>Result</h3>
-        <p>No computation yet.</p>
+      <div className="solution-view card">
+        <div className="card-header">
+          <h3>Result</h3>
+        </div>
+        <p className="muted">No computation yet.</p>
       </div>
     );
   }
 
   return (
-    <div className="solution-view">
-      <h3>Result</h3>
+    <div className="solution-view card">
+      <div className="card-header">
+        <h3>Result</h3>
+      </div>
       <div className="solution-list">
-        <strong>Solution X:</strong>
+        <strong>Solution X</strong>
         <ul>
           {result.solution.map((value, index) => (
             <li key={index}>
@@ -38,10 +44,12 @@ const SolutionView: React.FC<SolutionViewProps> = ({ result, error }) => {
           ))}
         </ul>
       </div>
-      <p className="validation">Verification: {result.isValid ? 'Solution is valid: AX ≈ B' : 'Solution failed verification'}</p>
+      <p className="validation">
+        {result.isValid ? 'Solution is valid: AX ≈ B' : 'Solution failed verification'}
+      </p>
       {result.warnings && result.warnings.length > 0 && (
         <div className="warnings">
-          <strong>Warnings:</strong>
+          <strong>Warnings</strong>
           <ul>
             {result.warnings.map((warning, index) => (
               <li key={index}>{warning}</li>

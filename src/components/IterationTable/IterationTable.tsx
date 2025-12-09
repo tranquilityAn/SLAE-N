@@ -1,5 +1,5 @@
 import React from 'react';
-import type { IterationInfo } from '../../core/types.js';
+import type { IterationInfo } from '../../core/types';
 
 interface IterationTableProps {
   iterations?: IterationInfo[];
@@ -19,14 +19,16 @@ const IterationTable: React.FC<IterationTableProps> = ({ iterations }) => {
   };
 
   return (
-    <div className="iteration-table">
-      <h3>Iterations</h3>
+    <div className="iteration-table card">
+      <div className="card-header">
+        <h3>Iterations</h3>
+      </div>
       <table>
         <thead>
           <tr>
             <th>#</th>
             <th>Vector</th>
-            <th>Diff Norm</th>
+            <th>Diff norm</th>
           </tr>
         </thead>
         <tbody>

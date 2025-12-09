@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Vector } from '../../core/types.js';
+import type { Vector } from '../../core/types';
 
 interface VectorInputProps {
   n: number;
@@ -15,9 +15,12 @@ const VectorInput: React.FC<VectorInputProps> = ({ n, value, onChange }) => {
   };
 
   return (
-    <div className="vector-input">
-      <h3>Vector B</h3>
-      <div className="vector-grid" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '0.5rem' }}>
+    <div className="vector-input card">
+      <div className="card-header">
+        <h3>Vector B</h3>
+        <p className="muted">Enter constant terms for each equation.</p>
+      </div>
+      <div className="vector-grid">
         {Array.from({ length: n }).map((_, index) => (
           <input
             key={index}

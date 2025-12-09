@@ -1,6 +1,6 @@
 import React from 'react';
-import { MethodType } from '../../core/types.js';
-import type { MethodType as MethodTypeValue, SolveOptions } from '../../core/types.js';
+import { MethodType } from '../../core/types';
+import type { MethodType as MethodTypeValue, SolveOptions } from '../../core/types';
 
 interface SolverOptionsProps {
   method: MethodTypeValue;
@@ -21,20 +21,23 @@ const SolverOptions: React.FC<SolverOptionsProps> = ({ method, options, onChange
   }
 
   return (
-    <div className="solver-options">
-      <h4>Iterative Options</h4>
-      <div className="options-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.75rem' }}>
+    <div className="solver-options card">
+      <div className="card-header">
+        <h3>Iterative options</h3>
+        <p className="muted">Applies to Jacobi and Seidel methods.</p>
+      </div>
+      <div className="options-grid">
         <label className="option-field">
-          <span>Epsilon</span>
+          <span className="field-label">Epsilon</span>
           <input
             type="number"
-            step="0.0001"
+            step="0.000001"
             value={options.epsilon ?? ''}
             onChange={(e) => handleNumberChange('epsilon', e.target.value)}
           />
         </label>
         <label className="option-field">
-          <span>Max Iterations</span>
+          <span className="field-label">Max iterations</span>
           <input
             type="number"
             min={1}

@@ -1,14 +1,14 @@
 import React, { useMemo, useState } from 'react';
-import MatrixInput from '../../components/MatrixInput/MatrixInput.js';
-import VectorInput from '../../components/VectorInput/VectorInput.js';
-import MethodSelector from '../../components/MethodSelector/MethodSelector.js';
-import SolverOptions from '../../components/SolverOptions/SolverOptions.js';
-import FileUploader from '../../components/FileUploader/FileUploader.js';
-import SolutionView from '../../components/SolutionView/SolutionView.js';
-import IterationTable from '../../components/IterationTable/IterationTable.js';
-import Layout from '../../components/Layout/Layout.js';
-import { MethodType, solveSlae } from '../../core/index.js';
-import type { Matrix, MethodType as MethodTypeValue, SolveOptions, SolveResult, Vector } from '../../core/types.js';
+import MatrixInput from '../../components/MatrixInput/MatrixInput';
+import VectorInput from '../../components/VectorInput/VectorInput';
+import MethodSelector from '../../components/MethodSelector/MethodSelector';
+import SolverOptions from '../../components/SolverOptions/SolverOptions';
+import FileUploader from '../../components/FileUploader/FileUploader';
+import SolutionView from '../../components/SolutionView/SolutionView';
+import IterationTable from '../../components/IterationTable/IterationTable';
+import Layout from '../../components/Layout/Layout';
+import { MethodType, solveSlae } from '../../core';
+import type { Matrix, MethodType as MethodTypeValue, SolveOptions, SolveResult, Vector } from '../../core/types';
 
 const createZeroMatrix = (size: number): Matrix => Array.from({ length: size }, () => Array(size).fill(0));
 const createZeroVector = (size: number): Vector => Array(size).fill(0);
@@ -76,12 +76,18 @@ const HomePage: React.FC = () => {
 
   return (
     <div className="home-page">
-      <h1>SLAE Solver</h1>
+      <header className="page-header">
+        <div>
+          <p className="eyebrow">Linear algebra toolkit</p>
+          <h1>SLAE Solver</h1>
+          <p className="subtitle">Solve systems of linear equations using direct and iterative numerical methods.</p>
+        </div>
+      </header>
       <Layout
         left={
-          <div className="input-panel" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div className="input-panel">
             <label className="field">
-              <span>Dimension (n)</span>
+              <span className="field-label">Dimension (n)</span>
               <input type="number" min={2} value={n} onChange={(e) => handleNChange(e.target.value)} />
             </label>
             <MethodSelector value={method} onChange={setMethod} />
@@ -89,11 +95,13 @@ const HomePage: React.FC = () => {
             <MatrixInput n={n} value={A} onChange={setA} />
             <VectorInput n={n} value={B} onChange={setB} />
             <FileUploader onLoad={handleFileLoad} />
-            <button onClick={handleSolve}>Solve</button>
+            <button className="primary" onClick={handleSolve}>
+              Solve
+            </button>
           </div>
         }
         right={
-          <div className="results-panel" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div className="results-panel">
             <SolutionView result={result} error={error} />
             {isIterativeMethod && <IterationTable iterations={result?.iterations} />}
           </div>
